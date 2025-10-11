@@ -80,7 +80,7 @@ export class EncuestaCapiBobba implements INodeType {
           );
         }
 
-        const body = `¡Hola! Soy CapiBot, de CapiBobba 💜.\n\nNoté que disfrutaste de un pedido con nosotros el ${fecha}. ¡Esperamos que te haya encantado!\n\nPara mejorar, ¿podrías calificar tu experiencia?`;
+        const body = `¡Hola! Soy CapiBot, de CapiBobba 💜.\n\nNoté que disfrutaste de un pedido con nosotros el ${fecha}. ¡Esperamos que te haya encantado!\n\nPara mejorar, ¿podrías calificar tu experiencia?\n\n💬 *Opcional*: Después de calificar, puedes enviarnos un comentario sobre tu experiencia. ¡Tu opinión es muy importante para nosotros!`;
         const button = 'Calificar ⭐';
         const sections = [{
           title: 'Tu calificación',
