@@ -7,6 +7,7 @@ class EncuestaCapiBobba {
         this.description = {
             displayName: 'Encuesta CapiBobba',
             name: 'encuestaCapiBobba',
+            icon: 'file:encuestaCapiBobba.png',
             group: ['transform'],
             version: 1,
             description: 'Sends a CapiBobba survey',
@@ -48,11 +49,26 @@ class EncuestaCapiBobba {
             try {
                 const fecha = this.getNodeParameter('fecha', i, '');
                 const phoneNumber = this.getNodeParameter('phoneNumber', i, '');
-                const credentials = await this.getCredentials('whatsAppApi');
+                // Obtener credenciales
+                let credentials;
+                try {
+                    credentials = await this.getCredentials('whatsAppApi');
+                }
+                catch (error) {
+                    throw new n8n_workflow_1.NodeOperationError(this.getNode(), `Failed to get credentials: ${error.message}`);
+                }
+                // Log para debug (temporal)
+                console.log('Credentials object:', JSON.stringify(credentials, null, 2));
+                const accessToken = credentials.accessToken;
+                const phoneNumberId = credentials.phoneNumberId;
+                // Validar que las credenciales existen y tienen los valores requeridos
+                if (!accessToken || !phoneNumberId) {
+                    throw new n8n_workflow_1.NodeOperationError(this.getNode(), `WhatsApp API credentials are not configured correctly. AccessToken: ${accessToken ? 'SET' : 'MISSING'}, PhoneNumberId: ${phoneNumberId ? 'SET' : 'MISSING'}`);
+                }
                 const body = `¡Hola! Soy CapiBot, de CapiBobba 💜.\n\nNoté que disfrutaste de un pedido con nosotros el ${fecha}. ¡Esperamos que te haya encantado!\n\nPara mejorar, ¿podrías calificar tu experiencia?`;
                 const button = 'Calificar ⭐';
                 const sections = [{
-                        title: 'Selecciona tu calificación',
+                        title: 'Tu calificación',
                         rows: [
                             { id: 'rating_5', title: '⭐⭐⭐⭐⭐ Excelente (5)', description: '¡Todo fue perfecto!' },
                             { id: 'rating_4', title: '⭐⭐⭐⭐ Muy Bueno (4)', description: 'Me gustó mucho' },
@@ -78,9 +94,9 @@ class EncuestaCapiBobba {
                 };
                 const options = {
                     method: 'POST',
-                    uri: `https://graph.facebook.com/v15.0/${credentials.phoneNumberId}/messages`,
+                    uri: `https://graph.facebook.com/v22.0/${phoneNumberId}/messages`,
                     headers: {
-                        Authorization: `Bearer ${credentials.accessToken}`,
+                        Authorization: `Bearer ${accessToken}`,
                         'Content-Type': 'application/json',
                     },
                     body: data,
