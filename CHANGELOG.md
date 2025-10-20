@@ -5,6 +5,11 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
+## [0.2.2] - 2025-10-20
+
+### Corregido
+- **Bug crítico que causaba conflicto con las credenciales de n8n**. Se eliminó la definición de credencial 'whatsAppApi' personalizada que sobrescribía la credencial integrada de n8n.
+
 ## [0.2.1] - 2025-10-11
 
 ### Mejorado
