@@ -22,7 +22,7 @@ export class EncuestaCapiBobba implements INodeType {
     outputs: ['main'],
     credentials: [
       {
-        name: 'whatsAppApi',
+        name: 'capiBobbaWhatsAppApi',
         required: true,
       },
     ],
@@ -58,7 +58,7 @@ export class EncuestaCapiBobba implements INodeType {
         // Obtener credenciales
         let credentials;
         try {
-          credentials = await this.getCredentials('whatsAppApi');
+          credentials = await this.getCredentials('capiBobbaWhatsAppApi');
         } catch (error) {
           throw new NodeOperationError(
             this.getNode(),

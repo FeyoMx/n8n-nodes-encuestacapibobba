@@ -18,7 +18,7 @@ class EncuestaCapiBobba {
             outputs: ['main'],
             credentials: [
                 {
-                    name: 'whatsAppApi',
+                    name: 'capiBobbaWhatsAppApi',
                     required: true,
                 },
             ],
@@ -52,7 +52,7 @@ class EncuestaCapiBobba {
                 // Obtener credenciales
                 let credentials;
                 try {
-                    credentials = await this.getCredentials('whatsAppApi');
+                    credentials = await this.getCredentials('capiBobbaWhatsAppApi');
                 }
                 catch (error) {
                     throw new n8n_workflow_1.NodeOperationError(this.getNode(), `Failed to get credentials: ${error.message}`);
